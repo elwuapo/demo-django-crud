@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}
+{% endblock %}
+
+{% block contenido %}
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-6 border rounded" style="margin-top: 50px;">
+                <form action="{% url 'ModificarPerro' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h1 class="text-center p-3">Formulario de registro</h1>
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nro Chip</label>
+                        <input type="number" class="form-control" id="nombre" name="nro_chip" value="{{perro.nro_chip}}" placeholder="Ingrese el nro de chip">
+                    </div>
+    
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" value="{{perro.nombre}}" placeholder="Ingrese el nombre del perro">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="raza" class="form-label">Raza</label>
+                        <select class="form-select" name="raza" id="raza">
+                            {% for raza in razas %}
+                                {% if raza.id == perro.raza.id %}
+                                    <option value="{{raza.id}}" selected>{{raza.nombre}}</option>
+                                {% else %}
+                                    <option value="{{raza.id}}">{{raza.nombre}}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+    
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Imagen</label>
+                        <input class="form-control" type="file" id="formFile" name="imagen">
+                    </div>
+    
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-success" style="width: 100%; margin-top: 50px;">Registrar</button>
+                    </div>
+    
+                    <div class="mb-3">
+                        <button type="reset" class="btn btn-danger" style="width: 100%;">Registrar</button>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+{% endblock %}

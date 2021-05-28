@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}
+{% endblock %}
+
+{% block contenido %}
+    <div class="container">
+        <br>
+        <div class="row">
+            <a href="{% url 'FormularioPerroAgr' %}">Agregar</a>
+        </div>
+        <br>
+        <div class="row">
+            {% for perro in perros%}
+                <div class="col-3">
+                    <div class="card" style="width: 100%; margin-bottom: 20px;">
+                        <a href="perro1.html">
+                            <img src="/static/media/{{perro.imagen}}" class="card-img-top" alt="perro 01">
+                        </a>
+                        <div class="card-body">
+                            <p class="card-text text-center">{{perro.nombre}}</p>
+
+                            <a class="btn btn-success" href="{% url 'FormularioPerroMod' perro.nro_chip %}" role="button">Editar</a>
+                            <a class="btn btn-danger" href="{% url 'EliminarPerro' perro.nro_chip %}" role="button">Eliminar</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+    <div class="container">
+        <br>
+        <div class="row">
+            <div class="col-3">
+                <div class="card" style="width: 100%; margin-bottom: 20px;">
+                    <a href="perro1.html">
+                        <img src="{% static 'img/perros/P01.png' %}" class="card-img-top" alt="perro 01">
+                    </a>
+                    <div class="card-body">
+                        <p class="card-text text-center">nombre</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+-->

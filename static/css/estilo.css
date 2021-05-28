@@ -1,0 +1,18 @@
+/* footer */
+.footer {
+    background-color: #fff;
+}
+
+.footer-derechos {
+    padding: 10px;
+    background-color: #bdbdbd;
+    text-align: center;
+}
+
+.imagen-social {
+    margin: 20px;
+}
+
+.link-social {
+    text-decoration: none;
+}
