@@ -1,11 +1,33 @@
 from core.models import Perro, Raza
 from django.shortcuts import redirect, render
+from django.contrib.auth import authenticate, logout, login as auth_login
+#from django.contrib.auth import authenticate, login, logout
 
 
 def Inicio(request):
     contexto = {}
     return render(request, 'inicio.html', contexto)
 
+def SignIn(request):
+    contexto = {}
+    return render(request, 'signin.html', contexto)
+
+def Logeando(request):
+    username = request.POST.get('usuario','')
+    password = request.POST.get('clave', '')
+
+    user = authenticate(request, username=username, password=password)
+
+    if user is not None:
+        auth_login(request, user)
+        return redirect('Inicio')
+    else:
+        return redirect('SignIn')
+    
+def Deslogeo(request):
+    logout(request)
+    return redirect('Inicio')
+    
 def Perros(request):
     perros = Perro.objects.all()
     contexto = {'perros': perros}
@@ -64,3 +86,50 @@ def EliminarPerro(request, nro_chip):
     perro.delete()
 
     return redirect('Perros')
+
+
+"""
+def SignIn(request):
+    contexto ={}
+    return render(request, 'login.html', contexto)
+
+def IniciarSesion(request):
+    
+    username = request.POST.get('usuario','')
+    password = request.POST.get('clave', '')
+
+    usuario = authenticate(request, username = username, password = password)
+
+    if usuario is not None:
+        auth_login(request, usuario)
+        return redirect('Inicio')
+    else:
+        return redirect('SignIn')
+
+def CerrarSesion(request):
+    logout(request)
+    return redirect('Inicio')
+"""
+
+"""
+def SignIn(request):
+    contexto = {}
+    return render(request, 'signin.html', contexto)
+
+def Logeando(request):
+    username = request.POST.get('usuario', 'valor default')
+    password = request.POST.get('clave', 'valor default')
+
+    user = authenticate(request, username=username, password=password)
+
+    if user is not None:
+        auth_login(request, user)
+        
+        return redirect('Inicio')
+    else:
+        return redirect('SignIn')
+
+def Deslogeo(request):
+    logout(request)
+    return redirect('Inicio')
+"""

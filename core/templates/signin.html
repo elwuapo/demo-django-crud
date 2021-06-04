@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %}
+
+{% block titulo %}
+    <title>Sign in</title>
+{% endblock %}
+
+{% block contenido %}
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <div class="col-4 border rounded" style="margin-top: 40px;">
+                <form action="{% url 'Logeando' %}" method="POST">
+                    {% csrf_token %}
+                    
+                    <img class="rounded mx-auto d-block" src="{% static 'img/signin/user-signin.png'%}" alt="user-logo" width="100" style="margin: 20px;">
+    
+                    <div class="mb-3">
+                        <label for="usuario" class="form-label">Usuario:</label>
+                        <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Ingrese usuario">
+                    </div>
+    
+                    <div class="mb-3">
+                        <label for="clave" class="form-label">Clave:</label>
+                        <input type="password" class="form-control" id="clave" name="clave" placeholder="Ingrese clave">
+                    </div>
+    
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-success" style="width: 100%; margin-top: 20px;">Sign In</button>
+                    </div>
+
+                    <div class="mb-3">
+                        <a class="btn btn-danger" href="{% provider_login_url 'google' %}" style="width: 100%; margin-top: 20px;">Sign In with Google</a>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+{% endblock %}
