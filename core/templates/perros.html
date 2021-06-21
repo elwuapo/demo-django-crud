@@ -12,7 +12,7 @@
         </div>
         <br>
         <div class="row">
-            {% for perro in perros%}
+            {% for perro in perros %}
                 <div class="col-3">
                     <div class="card" style="width: 100%; margin-bottom: 20px;">
                         <a href="perro1.html">
@@ -21,11 +21,95 @@
                         <div class="card-body">
                             <p class="card-text text-center">{{perro.nombre}}</p>
 
-                            <a class="btn btn-success" href="{% url 'FormularioPerroMod' perro.nro_chip %}" role="button">Editar</a>
-                            <a class="btn btn-danger" href="{% url 'EliminarPerro' perro.nro_chip %}" role="button">Eliminar</a>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal_edit_{{perro.nro_chip}}">
+                                Editar
+                            </button>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal_delete_{{perro.nro_chip}}">
+                                Eliminar
+                            </button>
                         </div>
                     </div>
                 </div>
+
+                <!-- Button trigger modal -->
+                
+                
+                <!-- Modal -->
+                <div class="modal fade" id="modal_edit_{{perro.nro_chip}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Editar perro nro chip: {{perro.nro_chip}}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- Formulario aqui!!!! -->
+                                <form action="{% url 'ModificarPerro' %}" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="mb-3">
+                                        <label for="nombre" class="form-label">Nro Chip</label>
+                                        <input type="number" class="form-control" id="nombre" name="nro_chip" value="{{perro.nro_chip}}" placeholder="Ingrese el nro de chip" readonly>
+                                    </div>
+                    
+                                    <div class="mb-3">
+                                        <label for="nombre" class="form-label">Nombre</label>
+                                        <input type="text" class="form-control" id="nombre" name="nombre" value="{{perro.nombre}}" placeholder="Ingrese el nombre del perro">
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="raza" class="form-label">Raza</label>
+                                        <select class="form-select" name="raza" id="raza">
+                                            {% for raza in razas %}
+                                                {% if raza.id == perro.raza.id %}
+                                                    <option value="{{raza.id}}" selected>{{raza.nombre}}</option>
+                                                {% else %}
+                                                    <option value="{{raza.id}}">{{raza.nombre}}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                    
+                                    <div class="mb-3">
+                                        <label for="formFile" class="form-label">Imagen</label>
+                                        <input class="form-control" type="file" id="formFile" name="imagen">
+                                    </div>
+                    
+                                    <div class="mb-3">
+                                        <button type="submit" class="btn btn-success" style="width: 100%; margin-top: 50px;">Registrar</button>
+                                    </div>
+                    
+                                    <div class="mb-3">
+                                        <button type="reset" class="btn btn-danger" style="width: 100%;">Limpiar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <!-- Button trigger modal -->
+                
+                
+                <!-- Modal -->
+                <div class="modal fade" id="modal_delete_{{perro.nro_chip}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Eliminar perro nro chip: {{perro.nro_chip}}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                ¿Esta seguro que realmente desea eliminar el perro de nuestro registros?
+                            </div>
+                            <div class="modal-footer">
+                                <a class="btn btn-danger" href="{% url 'EliminarPerro' perro.nro_chip %}" role="button">Eliminar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+  
+  
             {% endfor %}
         </div>
     </div>
@@ -33,36 +117,3 @@
 
 {% block script %}
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--
-    <div class="container">
-        <br>
-        <div class="row">
-            <div class="col-3">
-                <div class="card" style="width: 100%; margin-bottom: 20px;">
-                    <a href="perro1.html">
-                        <img src="{% static 'img/perros/P01.png' %}" class="card-img-top" alt="perro 01">
-                    </a>
-                    <div class="card-body">
-                        <p class="card-text text-center">nombre</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
--->

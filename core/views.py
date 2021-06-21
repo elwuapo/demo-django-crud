@@ -30,7 +30,8 @@ def Deslogeo(request):
     
 def Perros(request):
     perros = Perro.objects.all()
-    contexto = {'perros': perros}
+    razas = Raza.objects.all()
+    contexto = {'perros': perros, 'razas': razas}
 
     return render(request, 'perros.html', contexto)
 
@@ -71,8 +72,6 @@ def ModificarPerro(request):
     perro = Perro.objects.get(nro_chip=nro_chip)
     perro.nombre = nombre
     perro.raza = raza
-
-    print(imagen)
 
     if(imagen != ''):
         perro.imagen = imagen
